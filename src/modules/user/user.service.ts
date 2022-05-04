@@ -1,3 +1,7 @@
-import { UserModel } from "./user.model";
+import { User, UserModel } from "./user.model";
 
-export const createUser = async(user) => UserModel.create(user)
+export const createUser = async (user: Omit<User, "comparingPassword">) =>
+  UserModel.create(user);
+
+export const findUser = async (email: User["email"]) =>
+  UserModel.findOne({ email: email });

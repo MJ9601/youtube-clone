@@ -6,6 +6,9 @@ import helmet from "helmet";
 import logger from "./utils/logger";
 import { CORS_ORIGIN } from "./constants";
 import userRoute from "./modules/user/user.route";
+import authRoute from "./modules/auth/auth.route";
+import videoRoute from './modules/videos/video.route'
+import decondingUserCookie from "./middleware/decondingUserCookie";
 
 const PORT = process.env.PORT || 4000;
 
@@ -20,8 +23,12 @@ app.use(
   })
 );
 app.use(helmet());
+app.use(decondingUserCookie)
+
 
 app.use("/api/users", userRoute);
+app.use("/api/auth", authRoute);
+app.use('/api/videos', videoRoute)
 
 const server = app.listen(PORT, async () => {
   logger.info(`Server is running on http: //localhost: ${PORT}`);

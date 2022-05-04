@@ -18,8 +18,12 @@ export class User {
   @prop({ required: true, unique: false })
   public password: string;
 
-  public comparingPassword = async (password: string): Promise<boolean> =>
-    await argon2.verify(password, this.password);
+  public async comparingPassword(password: string): Promise<boolean> {
+    return argon2.verify(
+      this.password,
+      password
+    ); /* the order is important// first must be this.password */
+  }
 }
 
 export const UserModel = getModelForClass(User, {

@@ -10,7 +10,11 @@ export const registerUserHandler = async (
   const { username, email, password } = req.body;
 
   try {
-    await createUser({ username, email, password });
+    await createUser({
+      username,
+      email,
+      password,
+    });
     console.log(req.body);
     return res.status(StatusCodes.CREATED).send("user has been created!");
   } catch (err) {
