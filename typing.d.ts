@@ -10,3 +10,13 @@ export type Video = {
   description: string;
   title: string;
 };
+
+export type User = {
+  _id: string;
+  username: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+  iat: number;
+  exp: number;
+} | null;

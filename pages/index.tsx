@@ -1,14 +1,16 @@
-import { Center, Group } from "@mantine/core";
+import { Button, Center, Group } from "@mantine/core";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { ReactElement } from "react";
-import { getAllVideosFunc } from "../api/serverRequests";
+import { getAllVideosFunc, getUserFunc } from "../api/serverRequests";
 import VideoCard from "../components/VideoCard";
 import PageLayout from "../layout/PageLayout";
-import { Video } from "../typing";
+import { User, Video } from "../typing";
 
 const Home = ({ videos }: { videos: Video[] }) => {
+  const handleClick = async () => await getUserFunc();
+  // console.log(user);
   return (
     <div>
       <Head>
@@ -29,21 +31,26 @@ const Home = ({ videos }: { videos: Video[] }) => {
             ))}
           </Group>
         </Center>
+        <Button onClick={handleClick}>click me</Button>
       </div>
     </div>
   );
 };
 
-Home.getLayout = (page: ReactElement) => <PageLayout>{page}</PageLayout>;
+Home.getLayout = (page: ReactElement) => (
+  <PageLayout pageProps={page.props}>{page}</PageLayout>
+);
 
 export default Home;
 
 export const getServerSideProps = async () => {
   const videos = await getAllVideosFunc();
+  const user = await getUserFunc();
 
   return {
     props: {
       videos,
+      user,
     },
   };
 };
