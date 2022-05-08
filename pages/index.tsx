@@ -1,9 +1,10 @@
+import { Group } from "@mantine/core";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { ReactElement } from "react";
+import VideoCard from "../components/VideoCard";
 import PageLayout from "../layout/PageLayout";
-import styles from "../styles/Home.module.css";
 
 const Home = () => {
   return (
@@ -11,7 +12,20 @@ const Home = () => {
       <Head>
         <title>Home</title>
       </Head>
-      <div>hello world!</div>
+      <div
+        style={{
+          width: "95%",
+          margin: "auto",
+          padding: "30px 0",
+          height: "95vh",
+        }}
+      >
+        <Group grow spacing="md" position="left">
+          <VideoCard />
+          <VideoCard />
+          <VideoCard />
+        </Group>
+      </div>
     </div>
   );
 };

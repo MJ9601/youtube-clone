@@ -1,4 +1,14 @@
-import { AppShell, Box, Header, Footer, Group, Text } from "@mantine/core";
+import {
+  AppShell,
+  Box,
+  Header,
+  Footer,
+  Group,
+  Text,
+  AspectRatio,
+  Image,
+  Button,
+} from "@mantine/core";
 import { ReactElement } from "react";
 
 const PageLayout = ({ children }: { children: ReactElement }) => {
@@ -10,8 +20,16 @@ const PageLayout = ({ children }: { children: ReactElement }) => {
         },
       }}
       header={
-        <Header p="sm" height={"60px"} fixed>
-          <Group spacing={'lg'}></Group>
+        <Header height={"60px"}>
+          <Group spacing={"lg"} grow position="apart">
+            <AspectRatio ratio={1080 / 520} style={{ maxWidth: "130px" }}>
+              <Image src="/logo.png" />
+            </AspectRatio>
+            <Group position="right" pr="md" spacing="xs">
+              <Button variant="subtle">Sign in</Button>
+              <Button variant="subtle">Sign Up</Button>
+            </Group>
+          </Group>
         </Header>
       }
       footer={
