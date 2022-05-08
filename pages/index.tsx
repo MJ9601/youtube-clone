@@ -3,10 +3,12 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { ReactElement } from "react";
+import { getAllVideosFunc } from "../api/serverRequests";
 import VideoCard from "../components/VideoCard";
 import PageLayout from "../layout/PageLayout";
+import { Video } from "../typing";
 
-const Home = () => {
+const Home = ({ videos }: { videos: Video[] }) => {
   return (
     <div>
       <Head>
@@ -22,9 +24,9 @@ const Home = () => {
       >
         <Center style={{ width: "100%" }}>
           <Group grow spacing="md" position="left">
-            <VideoCard />
-            <VideoCard />
-            <VideoCard />
+            {videos.map((video) => (
+              <VideoCard key={video.videoId} videoInfo={video} />
+            ))}
           </Group>
         </Center>
       </div>
@@ -33,4 +35,15 @@ const Home = () => {
 };
 
 Home.getLayout = (page: ReactElement) => <PageLayout>{page}</PageLayout>;
+
 export default Home;
+
+export const getServerSideProps = async () => {
+  const videos = await getAllVideosFunc();
+
+  return {
+    props: {
+      videos,
+    },
+  };
+};

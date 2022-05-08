@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Video } from "../typing";
 
 export type UserInfo = {
   username: string;
@@ -22,12 +23,11 @@ export const getUserFunc = () =>
 export const loginUserFunc = (payload: { email: string; password: string }) =>
   axios.post(authBaseUrl, payload).then((res) => res.data());
 
-export const getAllVideosFunc = () =>
-  axios.get(videoBaseUrl).then((res) => res.data());
+export const getAllVideosFunc = async (): Promise<Video[]> =>
+  await (await fetch(videoBaseUrl)).json();
 
-export const getVideoFunc = (videoId: string) =>
-  axios.get(`${videoBaseUrl}/${videoId}`).then((res) => res.data());
-
+export const getVideoFunc = async (videoId: string) =>
+  await await (await fetch(`${videoBaseUrl}/${videoId}`)).json();
 // export const createVideoFunc = ()
 
 export const updateVideoInfoFunc = (

@@ -1,9 +1,16 @@
 import { Text, Card, Center, Group, Stack, Title, Avatar } from "@mantine/core";
 import { PlayerPlay } from "tabler-icons-react";
+import { Video } from "../typing";
 
-const VideoCard = () => {
+const VideoCard = ({ videoInfo }: { videoInfo: Video }) => {
   return (
-    <Card shadow="md" p="md" component="a" href={`/videos/id`} target="_blank">
+    <Card
+      shadow="md"
+      p="md"
+      component="a"
+      href={`/videos/${videoInfo.videoId}`}
+      target="_blank"
+    >
       <Card.Section>
         <Center
           style={{ width: "300px", backgroundColor: "#333", height: "200px" }}
@@ -16,8 +23,8 @@ const VideoCard = () => {
           M
         </Avatar>
         <Stack spacing="xs">
-          <Title order={3}>video title</Title>
-          <Text size="md">video description</Text>
+          <Title order={3}>{videoInfo.title}</Title>
+          <Text size="md">{videoInfo.description}</Text>
         </Stack>
       </Group>
     </Card>
