@@ -9,7 +9,7 @@ import PageLayout from "../layout/PageLayout";
 import { User, Video } from "../typing";
 
 const Home = ({ videos }: { videos: Video[] }) => {
-  const handleClick = async () => await getUserFunc();
+  // const handleClick = async () => await getUserFunc();
   // console.log(user);
   return (
     <div>
@@ -31,21 +31,23 @@ const Home = ({ videos }: { videos: Video[] }) => {
             ))}
           </Group>
         </Center>
-        <Button onClick={handleClick}>click me</Button>
       </div>
     </div>
   );
 };
 
 Home.getLayout = (page: ReactElement) => (
-  <PageLayout pageProps={page.props}>{page}</PageLayout>
+  <PageLayout user={page.props?.children?.props?.user}>{page}</PageLayout>
 );
 
 export default Home;
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async ({ req }: { req: any }) => {
+  const user = await getUserFunc({ req });
+
   const videos = await getAllVideosFunc();
-  const user = await getUserFunc();
+
+  console.log(user);
 
   return {
     props: {

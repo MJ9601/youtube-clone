@@ -11,19 +11,20 @@ import {
 } from "@mantine/core";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
-import { getServerSideProps } from "../pages/index";
-import { User, Video } from "../typing";
+import { User } from "../typing";
 
 const PageLayout = ({
-  pageProps,
+  user,
   children,
+  uploadPage,
 }: {
-  pageProps: { videos?: Video[]; user?: User };
+  user?: User;
   children: ReactElement;
+  uploadPage?: boolean;
 }) => {
   const router = useRouter();
 
-  console.log(pageProps);
+  console.log(user);
 
   return (
     <AppShell
@@ -39,7 +40,7 @@ const PageLayout = ({
               <Image src="/logo.png" />
             </AspectRatio>
             <Group position="right" pr="md" spacing="xs">
-              {/* {!user ? (
+              {!user ? (
                 <>
                   <Button
                     variant="subtle"
@@ -55,8 +56,17 @@ const PageLayout = ({
                   </Button>
                 </>
               ) : (
-                <Button variant="gradient">Upload Video</Button>
-              )} */}
+                <>
+                  {!uploadPage && (
+                    <Button
+                      variant="gradient"
+                      onClick={() => router.push("/upload")}
+                    >
+                      Upload Video
+                    </Button>
+                  )}
+                </>
+              )}
             </Group>
           </Group>
         </Header>
@@ -73,4 +83,3 @@ const PageLayout = ({
 };
 
 export default PageLayout;
-export { getServerSideProps };

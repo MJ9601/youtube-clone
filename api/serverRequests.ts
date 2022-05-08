@@ -7,6 +7,7 @@ const userBaseUrl = `${baseUrl}/api/users`;
 const authBaseUrl = `${baseUrl}/api/auth`;
 const videoBaseUrl = `${baseUrl}/api/videos`;
 
+// signup a new user
 export const registerUserFunc = (payload: {
   username: string;
   email: string;
@@ -14,23 +15,23 @@ export const registerUserFunc = (payload: {
   confirmPassword: string;
 }) => axios.post(userBaseUrl, payload).then((res) => res.data);
 
+// login function
 export const loginUserFunc = (payload: { email: string; password: string }) =>
   axios
     .post(authBaseUrl, payload, { withCredentials: true })
     .then((res) => res.data);
 
-export const getUserFunc = (): Promise<User> =>
+// get user in serverSide rendering
+export const getUserFunc = ({ req }: { req: any }): Promise<User> =>
   axios
-    .get(userBaseUrl, { withCredentials: true })
-    .then((res) => {
-      console.log(res.data);
-      return res.data;
+    .get(userBaseUrl, {
+      withCredentials: true,
+      headers: { Cookie: req.headers.cookie },
     })
-    .catch((err) => {
-      console.log(err.message);
-      return null;
-    });
+    .then((res) => res.data)
+    .catch((err) => null);
 
+// get all videos in serverSide rendering
 export const getAllVideosFunc = async (): Promise<Video[]> =>
   await (await fetch(videoBaseUrl)).json();
 
@@ -41,7 +42,12 @@ export const getVideoFunc = (videoId: string) =>
     .catch((err) => console.log(err.message));
 // export const createVideoFunc = ()
 
-export const updateVideoInfoFunc = (
+export const updateVideoInfoFunc = async (
   videoId: string,
   payload: { title: string; description: string; published: boolean }
-) => axios.patch(`${videoBaseUrl}/${videoId}`, payload).then((res) => res.data);
+) =>
+  await (
+    await axios.patch(`${videoBaseUrl}/${videoId}`, payload, {
+      withCredentials: true,
+    })
+  ).data;

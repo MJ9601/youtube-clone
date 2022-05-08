@@ -6,7 +6,6 @@ import Head from "next/head";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
-import { getUserFunc } from "../api/serverRequests";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
