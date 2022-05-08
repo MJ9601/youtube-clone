@@ -1,4 +1,4 @@
-import { Group } from "@mantine/core";
+import { Center, Group } from "@mantine/core";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -20,11 +20,13 @@ const Home = () => {
           height: "95vh",
         }}
       >
-        <Group grow spacing="md" position="left">
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-        </Group>
+        <Center style={{ width: "100%" }}>
+          <Group grow spacing="md" position="left">
+            <VideoCard />
+            <VideoCard />
+            <VideoCard />
+          </Group>
+        </Center>
       </div>
     </div>
   );

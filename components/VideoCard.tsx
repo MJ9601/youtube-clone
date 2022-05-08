@@ -1,4 +1,4 @@
-import { Text, Card, Center, Group, Stack, Title } from "@mantine/core";
+import { Text, Card, Center, Group, Stack, Title, Avatar } from "@mantine/core";
 import { PlayerPlay } from "tabler-icons-react";
 
 const VideoCard = () => {
@@ -11,10 +11,15 @@ const VideoCard = () => {
           <PlayerPlay size={66} color="#eee" />
         </Center>
       </Card.Section>
-      <Stack spacing="md" py="md">
-        <Title order={3}>video title</Title>
-        <Text size="md">video description</Text>
-      </Stack>
+      <Group position="left" py="md" align="flex-start">
+        <Avatar radius="xl" color="cyan">
+          M
+        </Avatar>
+        <Stack spacing="xs">
+          <Title order={3}>video title</Title>
+          <Text size="md">video description</Text>
+        </Stack>
+      </Group>
     </Card>
   );
 };

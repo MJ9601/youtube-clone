@@ -20,7 +20,7 @@ const PageLayout = ({ children }: { children: ReactElement }) => {
         },
       }}
       header={
-        <Header height={"60px"}>
+        <Header height={"60px"} sx={{ position: "sticky", top: "0" }}>
           <Group spacing={"lg"} grow position="apart">
             <AspectRatio ratio={1080 / 520} style={{ maxWidth: "130px" }}>
               <Image src="/logo.png" />
