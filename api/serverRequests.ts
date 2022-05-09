@@ -35,17 +35,41 @@ export const getUserFunc = ({ req }: { req: any }): Promise<User> =>
 export const getAllVideosFunc = async (): Promise<Video[]> =>
   await (await fetch(videoBaseUrl)).json();
 
+// get a video information for page rendering
 export const getVideoFunc = (videoId: string) =>
   axios
-    .get(`${videoBaseUrl}/${videoId}`)
+    .get(`${videoBaseUrl}/info/${videoId}`)
     .then((res) => res.data)
     .catch((err) => console.log(err.message));
-// export const createVideoFunc = ()
 
-export const updateVideoInfoFunc = async (
-  videoId: string,
-  payload: { title: string; description: string; published: boolean }
-) =>
+// upload video file with write streaming
+export const uploadVideoFileFunc = async ({
+  formData,
+  config,
+}: {
+  formData: FormData;
+  config: { onUploadProgress: (progressEvent: any) => void };
+}) =>
+  await (
+    await axios.post(videoBaseUrl, formData, {
+      withCredentials: true,
+      ...config,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+  ).data;
+
+// updating video information
+export const updateVideoInfoFunc = async ({
+  videoId,
+  ...payload
+}: {
+  videoId: string;
+  title?: string;
+  description?: string;
+  published?: boolean;
+}): Promise<Video> =>
   await (
     await axios.patch(`${videoBaseUrl}/${videoId}`, payload, {
       withCredentials: true,

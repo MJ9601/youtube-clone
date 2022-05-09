@@ -24,8 +24,6 @@ const PageLayout = ({
 }) => {
   const router = useRouter();
 
-  console.log(user);
-
   return (
     <AppShell
       styles={{

@@ -3,8 +3,8 @@ export type Video = {
   owner: string;
   published: boolean;
   videoId: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   __v: number;
   extension: string;
   description: string;
@@ -15,8 +15,8 @@ export type User = {
   _id: string;
   username: string;
   email: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   iat: number;
   exp: number;
 } | null;
