@@ -4,7 +4,8 @@ This project has been created as backend for a video sharing and video streaming
 
 The following Tech is used in the development of this backend server.
 
-bash ```
+
+ ```bash
 
 Nodejs
 Expressjs
