@@ -57,7 +57,6 @@ const Upload = () => {
 
   const nextStep = async () => {
     setActive((current) => (current < 3 ? current + 1 : current));
-    console.log(active);
     if (active == 0) {
       setVideoId((await fileUpload(files as File[])).videoId);
     } else if (active == 1) {

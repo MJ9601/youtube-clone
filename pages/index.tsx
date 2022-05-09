@@ -10,7 +10,6 @@ import { User, Video } from "../typing";
 
 const Home = ({ videos }: { videos: Video[] }) => {
   // const handleClick = async () => await getUserFunc();
-  // console.log(user);
   return (
     <div>
       <Head>
@@ -47,7 +46,6 @@ export const getServerSideProps = async ({ req }: { req: any }) => {
 
   const videos = await getAllVideosFunc();
 
-  console.log(user);
 
   return {
     props: {

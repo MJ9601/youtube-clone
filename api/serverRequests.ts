@@ -40,7 +40,7 @@ export const getVideoFunc = (videoId: string) =>
   axios
     .get(`${videoBaseUrl}/info/${videoId}`)
     .then((res) => res.data)
-    .catch((err) => console.log(err.message));
+    .catch((err) => err.message);
 
 // upload video file with write streaming
 export const uploadVideoFileFunc = async ({
