@@ -13,13 +13,19 @@ import { showNotification, updateNotification } from "@mantine/notifications";
 import { AxiosError } from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 import { useMutation } from "react-query";
 import { loginUserFunc } from "../../api/serverRequests";
 import PageLayout from "../../layout/PageLayout";
+import { User } from "../../typing";
+import { getServerSideProps } from "../upload";
 
-const Login = () => {
+const Login = ({ user }: { user: User }) => {
   const router = useRouter();
+
+  useEffect(() => {
+    if (user) router.push("/");
+  }, []);
 
   const loginForm = useForm({
     initialValues: {
@@ -82,3 +88,5 @@ const Login = () => {
 
 Login.getLayout = (page: ReactElement) => <PageLayout>{page}</PageLayout>;
 export default Login;
+
+export { getServerSideProps };

@@ -13,13 +13,19 @@ import { showNotification, updateNotification } from "@mantine/notifications";
 import { AxiosError } from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 import { useMutation } from "react-query";
 import { registerUserFunc } from "../../api/serverRequests";
 import PageLayout from "../../layout/PageLayout";
+import { User } from "../../typing";
+import { getServerSideProps } from "../upload";
 
-const Register = () => {
+const Register = ({ user }: { user: User }) => {
   const router = useRouter();
+
+  useEffect(() => {
+    if (user) router.push("/");
+  }, []);
 
   const registerForm = useForm({
     initialValues: {
@@ -120,3 +126,5 @@ const Register = () => {
 
 Register.getLayout = (page: ReactElement) => <PageLayout>{page}</PageLayout>;
 export default Register;
+
+export { getServerSideProps };

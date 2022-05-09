@@ -1,5 +1,15 @@
-import { Button, Center, Group, Stack, Stepper, Text } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Center,
+  Group,
+  Stack,
+  Stepper,
+  Text,
+} from "@mantine/core";
+import { Dropzone, MIME_TYPES } from "@mantine/dropzone";
 import React, { ReactElement, useState } from "react";
+import { ArrowBigUpLine, FileUpload } from "tabler-icons-react";
 import { getUserFunc } from "../api/serverRequests";
 import PageLayout from "../layout/PageLayout";
 import { User } from "../typing";
@@ -10,7 +20,32 @@ const Upload = () => {
     setActive((current) => (current < 3 ? current + 1 : current));
   return (
     <div style={{ width: "98%" }}>
-      <Center style={{ width: "100%", height: "100%" }} px="xl" py="md">
+      <Center
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        px="xl"
+        py="md"
+      >
+        <Box sx={{ width: "80%", height: "43vh" }}>
+          <Dropzone
+            onDrop={(files) => {}}
+            accept={[MIME_TYPES.mp4]}
+            multiple={false}
+          >
+            {(status) => (
+              <Group align="center" position="center">
+                <FileUpload size={60} strokeWidth={2} />
+              </Group>
+            )}
+          </Dropzone>
+        </Box>
+
         <Stack sx={{ width: "80%", minWidth: "300px", maxWidth: "800px" }}>
           <Group grow position="center"></Group>
           <Group grow position="center">
