@@ -9,6 +9,9 @@ import userRoute from "./modules/user/user.route";
 import authRoute from "./modules/auth/auth.route";
 import videoRoute from './modules/videos/video.route'
 import decondingUserCookie from "./middleware/decondingUserCookie";
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 const PORT = process.env.PORT || 4000;
 
