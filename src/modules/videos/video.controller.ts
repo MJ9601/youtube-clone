@@ -39,7 +39,7 @@ export const uploadVideoHandler = async (req: Request, res: Response) => {
 
     await video.save();
 
-    // creating a write stream for saveing file part by part 
+    // creating a write stream for saveing file part by part
     const stream = fs.createWriteStream(path);
 
     // pipping the stream to file
@@ -87,7 +87,7 @@ export const updateVideoHandler = async (
 
   // save video to the data base
   await video.save();
-  
+
   // send successful response to client
   return res.status(StatusCodes.OK).send(video);
 };
@@ -98,12 +98,12 @@ export const streamVideoHandler = async (
 ) => {
   // reading videoId from req.params
   const { videoId } = req.params;
-// determining of video file existing in database
+  // determining of video file existing in database
   const videoFile = await findVideoById(videoId);
   if (!videoFile)
     return res.status(StatusCodes.NOT_FOUND).send("video does not exist!");
 
-    // get path of video file
+  // get path of video file
   const filePath = getPath({
     videoId: videoFile.videoId,
     extension: videoFile.extension,
@@ -117,7 +117,7 @@ export const streamVideoHandler = async (
   if (!range)
     return res.status(StatusCodes.BAD_REQUEST).send("range is required!");
 
-    // setting of start of chunk
+  // setting of start of chunk
   const startOfChunk = Number(range.replace(/\D/g, ""));
 
   // finding end of chunk
@@ -132,23 +132,29 @@ export const streamVideoHandler = async (
   // setting of headers
   const headers = {
     "Content-Range": `bytes ${startOfChunk}-${endOfChuck}/${fileSizeInBytes}`,
-    "Accept-Range": 'bytes',
+    "Accept-Range": "bytes",
     "Content-length": chunkSizeInBytes,
-    "Content-Type": `video/${videoFile.extension}`
-  }
+    "Content-Type": `video/${videoFile.extension}`,
+    "Cross-Origin-Resource-Policy": "cross-origin",
+  };
 
   // writing header for response
   res.writeHead(StatusCodes.PARTIAL_CONTENT, headers);
 
   // creating read stream for loading data and sending it to client
   const videoStream = fs.createReadStream(filePath, {
-    start: startOfChunk, 
-    end: endOfChuck
+    start: startOfChunk,
+    end: endOfChuck,
   });
 
-  // pipe the video stream 
-  videoStream.pipe(res)
+  // pipe the video stream
+  videoStream.pipe(res);
 };
 
 export const findVideosHandler = async (_: Request, res: Response) =>
   res.status(StatusCodes.OK).send(await findAllVideos());
+
+export const findVideoInfo = async (
+  req: Request<UpdateVideoParams, {}, {}>,
+  res: Response
+) => res.status(StatusCodes.OK).send(await findVideoById(req.params.videoId));

@@ -19,10 +19,10 @@ export const registerUserSchema = {
         "max number of letter for password is 32"
       ) /*    the object is zod is required by defualt for unrequired field use .optainal()  */,
 
-    comfirmedPassword: string({
+    confirmPassword: string({
       required_error: "comfirmedPass is requird!",
     }) /*    the object is zod is required by defualt for unrequired field use .optainal()  */,
-  }).refine((data) => data.password == data.comfirmedPassword, {
+  }).refine((data) => data.password == data.confirmPassword, {
     message: "Password should be match with comfirmedPass!",
     path: ["comfirmedPassword"],
   }),
